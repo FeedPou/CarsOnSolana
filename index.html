@@ -408,23 +408,36 @@
             }
 
             .right-sidebar {
-                display: none;
-            }
+            position: absolute;
+            bottom: 25vh;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: none;
+            border: none;
+        }
 
-            .car-selection-container {
-                position: absolute;
-                bottom: 25vh;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 10px;
-                background: rgba(0, 0, 0, 0.8);
-                border: 2px solid white;
-                border-radius: 10px;
-            }
+        .right-sidebar h2,
+        .right-sidebar label,
+        .right-sidebar input,
+        .right-sidebar button {
+            display: none;
+        }
+
+        .car-selection-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid white;
+            border-radius: 10px;
+        }
             .play-button {
                 display: none;
             }
@@ -467,8 +480,7 @@
 <input type="range" id="roughnessSlider" class="slider" min="0" max="1" step="0.01" value="0.5">
 <button onclick="applyCustomization()">Apply</button>
 
-<!-- Car Selection Scroll -->
-<!-- Car Selection Scroll -->
+
 <!-- Car Selection Scroll -->
 <label>Car Model:</label>
 <div class="car-selection-container">
@@ -477,24 +489,9 @@
     <button class="scroll-btn scroll-right">&#9654;</button> <!-- Right Button -->
 </div>
 
-
-
-
-
-
 </div>
 
-
-
-
-<!-- Airdrop Minigame Popup (Hidden by Default) -->
-<div class="popup-sign" id="popupSign">
-    <img src="sign.png" alt="Sign">
-    <span class="popup-text">Airdrop Minigame Coming Soon!</span>
-</div>
-
-
-   <!-- Play Button -->
+ 
 <!-- Play Button -->
 <div class="button-container">
     <img id="playButton" src="staticgif.png" class="play-button">
