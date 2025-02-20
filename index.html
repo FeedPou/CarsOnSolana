@@ -428,64 +428,57 @@
             display: none;
         }
 
-        .car-selection-container {
-                position: absolute;
-                bottom: 25vh;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                padding: 10px;
-                background: rgba(0, 0, 0, 0.8);
-                border: 2px solid white;
-                border-radius: 10px;
+       
+            .play-button {
+                display: none;
             }
-        }
+           
+            .car-selection-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid white;
+    border-radius: 10px;
+}
 
-        .car-selection-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid white;
-            border-radius: 10px;
-        }
+/* Ensure buttons are visible */
+.scroll-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    background: white;
+    color: black;
+    border: 2px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
 
-        .scroll-btn {
-            width: 40px;
-            height: 40px;
-            font-size: 24px;
-            background: white;
-            color: black;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-        }
+.scroll-btn:hover {
+    background: gray;
+}
 
-        .scroll-btn:hover {
-            background: gray;
-        }
+/* Car display box */
+.car-display-box {
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    line-height: 40px;
+    white-space: nowrap;
+    background: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+}
 
-        .car-display-box {
-            width: 150px;
-            height: 40px;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 5px;
-            text-align: center;
-            line-height: 40px;
-            white-space: nowrap;
-            background: black;
-            color: white;
-            border: 2px solid white;
-            border-radius: 5px;
         }
    </style>
 </head>
