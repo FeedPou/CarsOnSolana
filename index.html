@@ -396,18 +396,18 @@
 }
 
 @media (max-width: 768px) {
-            .left-sidebar {
-                position: fixed;
-                top: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 100%;
-                height: auto;
-                background-size: contain;
-                padding: 10px;
-            }
+        .left-sidebar {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: auto;
+            background-size: contain;
+            padding: 10px;
+        }
 
-            .right-sidebar {
+        .right-sidebar {
             position: absolute;
             bottom: 25vh;
             left: 50%;
@@ -421,65 +421,65 @@
             border: none;
         }
 
+        /* Hide customization controls but KEEP car selection visible */
         .right-sidebar h2,
-        .right-sidebar label,
-        .right-sidebar input,
-        .right-sidebar button {
+        .right-sidebar input[type="color"],
+        .right-sidebar input[type="range"] {
             display: none;
         }
-
-       
-            .play-button {
-                display: none;
-            }
-           
-            .car-selection-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid white;
-    border-radius: 10px;
-}
-
-/* Ensure buttons are visible */
-.scroll-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    background: white;
-    color: black;
-    border: 2px solid white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-}
-
-.scroll-btn:hover {
-    background: gray;
-}
-
-/* Car display box */
-.car-display-box {
-    width: 150px;
-    height: 40px;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 5px;
-    text-align: center;
-    line-height: 40px;
-    white-space: nowrap;
-    background: black;
-    color: white;
-    border: 2px solid white;
-    border-radius: 5px;
-}
-
+        
+        /* Hide labels except car selection label */
+        .right-sidebar label:not(.car-selection-label) {
+            display: none;
         }
+        
+        /* Hide Apply button but KEEP car selection buttons */
+        .right-sidebar button:not(.scroll-btn) {
+            display: none;
+        }
+        
+        /* Special styling for car selection on mobile */
+        .car-selection-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+        
+        .car-display-box {
+            color: white;
+            font-weight: bold;
+        }
+
+        .play-button {
+            display: none;
+        }
+        
+        .scroll-btn {
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 22px;
+            background: black;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0 5px;
+        }
+
+        .scroll-btn:hover {
+            background: white;
+            color: black;
+        }
+    }
    </style>
 </head>
 <body>
@@ -928,35 +928,108 @@ function applyCustomization() {
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("📢 Page Loaded - Attaching Event Listeners");
-    
-        const leftButton = document.querySelector(".scroll-left");
-        const rightButton = document.querySelector(".scroll-right");
-        const carNameBox = document.getElementById("carName");
-    
-        if (!leftButton || !rightButton || !carNameBox) {
-            console.error("🚨 Error: Car selection elements not found!");
-            return;
-        }
-    
-        leftButton.addEventListener("click", function () {
-            console.log("⬅ Left Button Clicked");
-            changeCarModel(-1);
-        });
-    
-        rightButton.addEventListener("click", function () {
-            console.log("➡ Right Button Clicked");
-            changeCarModel(1);
-        });
-    
-        // Load the first car when the page loads
-        loadSelectedCar();
+    // Enhance mobile experience with improved touch event handling
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("📢 Page Loaded - Attaching Event Listeners");
+
+    const leftButton = document.querySelector(".scroll-left");
+    const rightButton = document.querySelector(".scroll-right");
+    const carNameBox = document.getElementById("carName");
+
+    if (!leftButton || !rightButton || !carNameBox) {
+        console.error("🚨 Error: Car selection elements not found!");
+        return;
+    }
+
+    // Enhance click event for better mobile support
+    leftButton.addEventListener("click", function(e) {
+        e.preventDefault(); // Prevent any default behavior
+        console.log("⬅ Left Button Clicked");
+        changeCarModel(-1);
     });
+
+    rightButton.addEventListener("click", function(e) {
+        e.preventDefault(); // Prevent any default behavior
+        console.log("➡ Right Button Clicked");
+        changeCarModel(1);
+    });
+
+    // Add touch events for mobile
+    leftButton.addEventListener("touchstart", function(e) {
+        e.preventDefault(); // Prevent scrolling
+        console.log("📱 Left Button Touch");
+        changeCarModel(-1);
+    });
+
+    rightButton.addEventListener("touchstart", function(e) {
+        e.preventDefault(); // Prevent scrolling
+        console.log("📱 Right Button Touch");
+        changeCarModel(1);
+    });
+
+    // Prevent zooming on double tap
+    document.addEventListener('touchend', function(e) {
+        const now = Date.now();
+        const DOUBLE_TAP_DELAY = 300;
+        if (lastTap && (now - lastTap) < DOUBLE_TAP_DELAY) {
+            e.preventDefault();
+        }
+        lastTap = now;
+    }, false);
+
+    // Load the first car when the page loads
+    loadSelectedCar();
+});
+
+// Track last tap time for preventing double-tap zoom
+let lastTap = 0;
+
+// Make sure car rotation works well on touchscreens
+let isDragging = false;
+let previousMouseX = 0;
+let previousTouchX = 0;
+
+// Add these touch event handlers for car rotation
+document.addEventListener('touchstart', function(e) {
+    // Don't start dragging if touching a button
+    if (e.target.tagName.toLowerCase() === 'button' || 
+        e.target.classList.contains('slider')) return;
+    
+    isDragging = true;
+    previousTouchX = e.touches[0].clientX;
+}, { passive: false });
+
+document.addEventListener('touchmove', function(e) {
+    if (isDragging) {
+        let deltaX = e.touches[0].clientX - previousTouchX;
+        if (carGroup) {
+            carGroup.rotation.y += deltaX * 0.01;
+        }
+        previousTouchX = e.touches[0].clientX;
+    }
+}, { passive: true });
+
+document.addEventListener('touchend', function() {
+    isDragging = false;
+}, { passive: true });
+
+// Force redraw on orientation change to fix layout issues
+window.addEventListener('orientationchange', function() {
+    setTimeout(function() {
+        if (renderer) {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.render(scene, camera);
+        }
+    }, 200);
+});
     
     // Global Car List & Index
     const carModels = [
         { name: "Porsche 911", file: "porsche.glb" },
+        { name: "MClaren Senna", file: "Senna.glb" },
+        { name: "MClaren Senna", file: "AudiR8.glb" },
         { name: "Ferrari", file: "ferrari1.glb" },
         { name: "Nissan R34", file: "NissanR34.glb" },
         { name: "M Gullwing", file: "MGullwing.glb" },
