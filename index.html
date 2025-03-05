@@ -258,7 +258,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    gap: 8px; /* Slightly more space between elements */
+    gap: 12px; /* Slightly more space between elements */
     margin-top: 5px; /* Increase margin */
 }
 
@@ -440,12 +440,13 @@
         
         /* Special styling for car selection on mobile */
         .car-selection-container {
+            gap: 15px; /* Even more space on mobile */
             display: flex;
             align-items: center;
             justify-content: center;
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
             border: 1px solid white;
         }
@@ -453,6 +454,8 @@
         .car-display-box {
             color: white;
             font-weight: bold;
+            width: 160px; /* Slightly smaller on mobile but still spacious */
+            margin: 0 5px;
         }
 
         .play-button {
@@ -460,19 +463,17 @@
         }
         
         .scroll-btn {
-            width: 40px !important;
-            height: 40px !important;
-            font-size: 22px;
-            background: black;
-            color: white;
-            border: 2px solid white;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            margin: 0 5px;
+            width: 50px !important;
+        height: 40px !important;
+        font-size: 22px;
+        background: black;
+        color: white;
+        border: 2px solid white;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
         }
 
         .scroll-btn:hover {
@@ -480,9 +481,244 @@
             color: black;
         }
     }
+    #loadingScreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Press Start 2P', cursive;
+    }
+
+    #loadingTitle {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 10px; /* Increased space */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    /* Positioned car and road as a unified element */
+    .loading-animation {
+        position: relative;
+        width: 250px;
+        height: 60px;
+        margin-bottom: 30px;
+    }
+
+    /* Car loading animation - repositioned */
+    .eightBitCar {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        color: white;
+        animation: driveCar 1s infinite;
+        z-index: 2;
+    }
+
+    /* Road animation beneath car - repositioned */
+    .pixelRoad {
+        position: absolute;
+        top: 30px; /* Position road below car */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 20px;
+        background: repeating-linear-gradient(
+            90deg,
+            #333 0px,
+            #333 15px,
+            #222 15px,
+            #222 30px
+        );
+        background-size: 60px 100%;
+        animation: moveRoad 0.5s linear infinite;
+        z-index: 1;
+    }
+
+    #loadingBar {
+        width: 70%;
+        max-width: 400px;
+        height: 30px;
+        border: 3px solid white;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        position: relative;
+        overflow: hidden;
+    }
+
+    #loadingProgress {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(
+            45deg,
+            #00ff00 0%,
+            #66ff66 25%,
+            #00ff00 50%,
+            #66ff66 75%,
+            #00ff00 100%
+        );
+        background-size: 200% 100%;
+        animation: loadingGradient 2s linear infinite;
+        transition: width 0.3s ease-out;
+    }
+
+    #loadingText {
+        color: white;
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    #loadingCar {
+        font-size: 24px;
+        margin-top: 10px;
+        color: #00ff00;
+    }
+
+    /* Loading dots animation */
+    .loading-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        background-color: #00ff00;
+        border-radius: 50%;
+        animation: dotPulse 1.5s infinite;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.3s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+
+    @keyframes dotPulse {
+        0%, 100% { opacity: 0.2; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes driveCar {
+        0% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-3px); }
+        100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    @keyframes loadingGradient {
+        0% { background-position: 0% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    @keyframes moveRoad {
+        0% { background-position: 0 0; }
+        100% { background-position: -30px 0; }
+    }
+
+    /* Coming Soon Sign */
+    .coming-soon-sign {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .coming-soon-sign.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    .sign-content {
+        background-color: black;
+        border: 3px solid white;
+        padding: 30px;
+        text-align: center;
+        max-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+    
+    .sign-content h2 {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 24px;
+        color: #00ff00;
+        margin-bottom: 20px;
+    }
+    
+    .sign-content p {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 12px;
+        color: white;
+        margin-bottom: 20px;
+    }
+    
+    .sign-content button {
+        font-family: 'Press Start 2P', cursive;
+        background-color: black;
+        color: white;
+        border: 2px solid white;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .sign-content button:hover {
+        background-color: white;
+        color: black;
+    }
    </style>
 </head>
 <body>
+
+    <div id="loadingScreen">
+        <div id="loadingTitle">CARS ON SOLANA</div>
+ 
+        <div id="loadingText">LOADING CARS</div>
+        
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <script>
+        // Guaranteed timeout to force-close the loading screen
+        console.log("Setting up guaranteed loading timeout");
+        setTimeout(function() {
+          const loadingScreen = document.getElementById('loadingScreen');
+          if (loadingScreen) {
+            console.log("FORCING LOADING SCREEN TO CLOSE");
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.5s ease-out';
+            
+            // Hide completely after transition
+            setTimeout(function() {
+              loadingScreen.style.display = 'none';
+              console.log("LOADING SCREEN FORCEFULLY CLOSED");
+            }, 500);
+          }
+        }, 10000); // 8 seconds timeout
+      </script>
+
 
   <!-- Left Sidebar (Token Info) with New Border -->
 <div class="left-sidebar" id="leftSidebar">
@@ -536,7 +772,40 @@
     <span class="play-text">PLAY</span>
 </div>
 
-
+<div id="comingSoonSign" class="coming-soon-sign">
+    <div class="sign-content">
+        <h2>COMING SOON</h2>
+        <p>Stay tuned for the game launch!</p>
+        <button id="closeSignBtn">CLOSE</button>
+    </div>
+</div>
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get elements
+        const playButton = document.getElementById("playButton");
+        const comingSoonSign = document.getElementById("comingSoonSign");
+        const closeSignBtn = document.getElementById("closeSignBtn");
+        
+        // Show the sign when the play button is clicked
+        playButton.addEventListener("click", function() {
+            comingSoonSign.classList.add("visible");
+        });
+        
+        // Hide the sign when the close button is clicked
+        closeSignBtn.addEventListener("click", function() {
+            comingSoonSign.classList.remove("visible");
+        });
+        
+        // Also hide the sign when clicking outside the content box
+        comingSoonSign.addEventListener("click", function(e) {
+            // Only close if clicking the background, not the content
+            if (e.target === comingSoonSign) {
+                comingSoonSign.classList.remove("visible");
+            }
+        });
+    });
+</script>
 
     <!-- Three.js Scene -->
 
@@ -631,7 +900,7 @@ const gltfLoader = new THREE.GLTFLoader();
 gltfLoader.load('softbox.glb', function (gltf) {
     softbox = gltf.scene;
     softbox.scale.set(79, 79, 79);
-    softbox.position.set(0, -0.79, 0);
+    softbox.position.set(0, -0.93, 0);
 
     softbox.traverse((node) => {
         if (node.isMesh) {
@@ -660,7 +929,7 @@ const groundMaterial = new THREE.MeshStandardMaterial({
 
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = -Math.PI / 2; // Rotate to lie flat
-ground.position.y = -0.8; // Slightly below the car
+ground.position.y = -1.0; // Slightly below the car
 ground.receiveShadow = true;
 scene.add(ground);
 
@@ -816,11 +1085,6 @@ document.getElementById("roughnessSlider").addEventListener("input", function(ev
     }
 });
 
-
-
-
-
-        
         // Car Selection
         document.querySelectorAll(".car-button").forEach(button => {
     button.addEventListener("click", function() {
@@ -1029,7 +1293,8 @@ window.addEventListener('orientationchange', function() {
     const carModels = [
         { name: "Porsche 911", file: "porsche.glb" },
         { name: "MClaren Senna", file: "Senna.glb" },
-        { name: "MClaren Senna", file: "AudiR8.glb" },
+        { name: "Audi R8", file: "AudiR8.glb" },
+        { name: "Aventador", file: "Aventador.glb" },
         { name: "Ferrari", file: "ferrari1.glb" },
         { name: "Nissan R34", file: "NissanR34.glb" },
         { name: "M Gullwing", file: "MGullwing.glb" },
@@ -1091,6 +1356,8 @@ window.addEventListener('orientationchange', function() {
             const bbox = new THREE.Box3().setFromObject(newCar);
             const center = bbox.getCenter(new THREE.Vector3());
             newCar.position.sub(center);
+
+            
     
             // Apply material and shadow settings
             newCar.traverse((node) => {
@@ -1125,7 +1392,65 @@ window.addEventListener('orientationchange', function() {
         });
     }
     </script>
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get loading screen elements
+            const loadingScreen = document.getElementById('loadingScreen');
+            const loadingProgress = document.getElementById('loadingProgress');
+            const loadingCar = document.getElementById('loadingCar');
+            
+            // Define the total number of cars to load
+            const totalCars = carModels.length;
+            let carsLoaded = 0;
+            
+            // Function to update loading progress
+            function updateProgress(carName = "") {
+                carsLoaded++;
+                const percentage = Math.floor((carsLoaded / totalCars) * 100);
+                loadingProgress.style.width = percentage + "%";
+                loadingCar.textContent = carName;
+                
+                // If all cars are loaded, hide the loading screen
+                if (carsLoaded >= totalCars) {
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        loadingScreen.style.transition = 'opacity 0.5s ease-out';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }, 500); // Show 100% for half a second before fading
+                }
+            }
+            
+            // Function to preload all car models
+            function preloadCars() {
+                let loader = new THREE.GLTFLoader();
+                
+                carModels.forEach((car, index) => {
+                    // Use a slight delay for each car to show loading progress
+                    setTimeout(() => {
+                        loadingCar.textContent = `LOADING ${car.name}`;
+                        
+                        loader.load(car.file, function(gltf) {
+                            // Car loaded successfully
+                            console.log(`✅ Preloaded: ${car.name}`);
+                            updateProgress(car.name);
+                        }, 
+                        // Progress callback - not used
+                        undefined, 
+                        // Error callback
+                        function(error) {
+                            console.error(`❌ Error loading ${car.name}:`, error);
+                            updateProgress("Error: " + car.name);
+                        });
+                    }, index * 300); // Staggered loading with 300ms delay between each
+                });
+            }
+            
+            // Start preloading after a short delay to ensure everything is initialized
+            setTimeout(preloadCars, 500);
+        });
+    </script>
     
     
     
@@ -1133,6 +1458,7 @@ window.addEventListener('orientationchange', function() {
    
 </body>
 </html>
+
 
 
 
